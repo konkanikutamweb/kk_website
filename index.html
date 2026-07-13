@@ -507,6 +507,36 @@
   .gallery-caption h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; margin-bottom: 0.2rem; }
   .gallery-caption span { font-size: 0.72rem; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; }
 
+  /* ── GALLERY YEAR SUB-FILTER ── */
+  .gallery-year-filters {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    background: rgba(27,62,168,0.04);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .year-btn {
+    padding: 0.35rem 0.85rem;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .year-btn:hover, .year-btn.active {
+    background: var(--purple);
+    color: white;
+    border-color: var(--purple);
+  }
+
   /* ── LIGHTBOX ── */
   .lightbox {
     display: none; position: fixed; inset: 0; z-index: 2000;
@@ -677,6 +707,7 @@
   </div>
 </footer>
 
+<script src="pages/monthi_fest_data.js"></script>
 <script>
   function showSection(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
@@ -696,9 +727,47 @@
   function filterGallery(category, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      item.style.display = (category === 'all' || item.dataset.category === category) ? '' : 'none';
-    });
+
+    const yearFilters = document.getElementById('monthiYearFilters');
+    const staticGrid  = document.getElementById('galleryGrid');
+    const monthiGrid  = document.getElementById('monthiFestGrid');
+
+    if (category === 'monthi-fest') {
+      if (staticGrid)  staticGrid.style.display  = 'none';
+      if (monthiGrid)  monthiGrid.style.display   = '';
+      if (yearFilters) yearFilters.style.display  = 'flex';
+      if (monthiGrid && !monthiGrid.children.length) {
+        const activeBtn = document.querySelector('.year-btn.active') || document.querySelector('.year-btn');
+        if (activeBtn) filterMonthiFestYear(activeBtn.dataset.year, activeBtn);
+      }
+    } else {
+      if (staticGrid)  staticGrid.style.display  = '';
+      if (monthiGrid)  monthiGrid.style.display   = 'none';
+      if (yearFilters) yearFilters.style.display  = 'none';
+      document.querySelectorAll('#galleryGrid .gallery-item').forEach(item => {
+        item.style.display = (category === 'all' || item.dataset.category === category) ? '' : 'none';
+      });
+    }
+  }
+
+  function filterMonthiFestYear(year, btn) {
+    document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const grid = document.getElementById('monthiFestGrid');
+    if (!grid || typeof monthiFestData === 'undefined') return;
+
+    const data = monthiFestData[year];
+    if (!data) return;
+
+    grid.innerHTML = data.images.map(img => {
+      const src = (data.folder + '/' + img).replace(/ /g, '%20');
+      const esc = src.replace(/'/g, "\\'");
+      return `<div class="gallery-item" data-category="monthi-fest" onclick="openLightbox('${esc}', 'Monthi Fest ${year}', 'September ${year}')">` +
+        `<img src="${src}" alt="Monthi Fest ${year}" loading="lazy">` +
+        `<div class="gallery-caption"><h4>Monthi Fest ${year}</h4><span>September ${year}</span></div>` +
+        `</div>`;
+    }).join('');
   }
 
   function openLightbox(src, title, sub) {

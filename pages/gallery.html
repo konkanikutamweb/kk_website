@@ -13,6 +13,26 @@
     <button class="filter-btn" onclick="filterGallery('easter', this)">Easter</button>
   </div>
 
+  <!-- Year sub-filter — only visible when Monthi Fest is selected -->
+  <div class="gallery-year-filters" id="monthiYearFilters">
+    <button class="year-btn active" data-year="2025" onclick="filterMonthiFestYear('2025', this)">2025</button>
+    <button class="year-btn" data-year="2024" onclick="filterMonthiFestYear('2024', this)">2024</button>
+    <button class="year-btn" data-year="2023" onclick="filterMonthiFestYear('2023', this)">2023</button>
+    <button class="year-btn" data-year="2022" onclick="filterMonthiFestYear('2022', this)">2022</button>
+    <button class="year-btn" data-year="2019" onclick="filterMonthiFestYear('2019', this)">2019</button>
+    <button class="year-btn" data-year="2018" onclick="filterMonthiFestYear('2018', this)">2018</button>
+    <button class="year-btn" data-year="2017" onclick="filterMonthiFestYear('2017', this)">2017</button>
+    <button class="year-btn" data-year="2016" onclick="filterMonthiFestYear('2016', this)">2016</button>
+    <button class="year-btn" data-year="2015" onclick="filterMonthiFestYear('2015', this)">2015</button>
+    <button class="year-btn" data-year="2014" onclick="filterMonthiFestYear('2014', this)">2014</button>
+    <button class="year-btn" data-year="2009" onclick="filterMonthiFestYear('2009', this)">2009</button>
+    <button class="year-btn" data-year="2008" onclick="filterMonthiFestYear('2008', this)">2008</button>
+    <button class="year-btn" data-year="2007" onclick="filterMonthiFestYear('2007', this)">2007</button>
+    <button class="year-btn" data-year="2006" onclick="filterMonthiFestYear('2006', this)">2006</button>
+    <button class="year-btn" data-year="2005" onclick="filterMonthiFestYear('2005', this)">2005</button>
+  </div>
+
+  <!-- Static gallery grid (All / Summer Fest / Christmas / Easter) -->
   <div class="gallery-grid" id="galleryGrid">
     <div class="gallery-item" data-category="monthi-fest" onclick="openLightbox('Images/2025_monthi_festh.jpg', 'Monthi Fest 2025', 'September 2025')">
       <img src="Images/2025_monthi_festh.jpg" alt="Monthi Fest 2025" loading="lazy">
@@ -50,4 +70,7 @@
       </div>
     </div>
   </div>
+
+  <!-- Dynamic Monthi Fest year gallery (populated by JS) -->
+  <div class="gallery-grid" id="monthiFestGrid" style="display:none"></div>
 </div>
