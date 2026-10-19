@@ -398,6 +398,57 @@
   .initiative-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--dark); }
   .initiative-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
 
+  /* ── RECIPES ── */
+  .recipes-intro-note {
+    background: linear-gradient(135deg, rgba(232,114,26,0.08), rgba(232,184,32,0.08));
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 1rem 1.5rem; margin-bottom: 2rem; text-align: center;
+    font-size: 0.85rem; color: var(--muted);
+  }
+  .recipe-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+    padding: 2rem; margin-bottom: 2rem; max-width: 760px; margin-left: auto; margin-right: auto;
+  }
+  .recipe-image {
+    display: block; width: 100%; max-height: 340px; object-fit: cover;
+    border-radius: 12px; margin-bottom: 1.5rem;
+  }
+  .recipe-card-header { text-align: center; margin-bottom: 1.5rem; }
+  .recipe-card-header h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--dark); margin-bottom: 0.4rem; }
+  .recipe-card-header h3 em { color: var(--saffron); font-style: italic; }
+  .recipe-card-header p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+  .recipe-meta { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1rem; flex-wrap: wrap; }
+  .recipe-meta span { font-size: 0.78rem; color: var(--saffron); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .recipe-body { display: grid; grid-template-columns: 1fr 1.4fr; gap: 2rem; }
+  .recipe-body h4 {
+    font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--dark);
+    margin-bottom: 0.75rem; border-bottom: 2px solid var(--border); padding-bottom: 0.4rem;
+  }
+  .recipe-ingredients ul { list-style: none; }
+  .recipe-ingredients li {
+    font-size: 0.88rem; color: var(--text); line-height: 1.6; padding: 0.3rem 0 0.3rem 1.2rem; position: relative;
+  }
+  .recipe-ingredients li::before { content: '•'; color: var(--saffron); position: absolute; left: 0; font-weight: 700; }
+  .recipe-instructions ol { padding-left: 1.2rem; }
+  .recipe-instructions li { font-size: 0.88rem; color: var(--text); line-height: 1.75; margin-bottom: 0.75rem; }
+  .recipe-instructions li strong { color: var(--deep-red); }
+  .recipe-credit {
+    margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+    text-align: center; font-size: 0.8rem; color: var(--muted); font-style: italic;
+  }
+  .recipe-credit a { color: var(--saffron); font-style: normal; font-weight: 700; text-decoration: none; }
+  .recipe-credit a:hover { text-decoration: underline; }
+  .recipe-credit strong { color: var(--dark); font-style: normal; font-weight: 700; }
+  .recipe-credit-highlight {
+    display: inline-block; background: linear-gradient(135deg, var(--saffron), var(--gold));
+    color: white !important; padding: 0.3rem 0.9rem; border-radius: 20px;
+    font-size: 0.78rem; letter-spacing: 0.03em; margin: 0.25rem 0;
+  }
+  .recipe-credit-highlight:hover { text-decoration: none !important; opacity: 0.9; }
+  @media (max-width: 640px) {
+    .recipe-body { grid-template-columns: 1fr; }
+  }
+
   /* ── MEMBERSHIP ── */
   .membership-hero {
     background: linear-gradient(135deg, var(--purple) 0%, var(--dark) 100%);
@@ -688,6 +739,7 @@
     <a href="#" onclick="showSection('about')">About Us</a>
     <a href="#" onclick="showSection('events')">Events</a>
     <a href="#" onclick="showSection('initiatives')">Initiatives</a>
+    <a href="#" onclick="showSection('recipes')">Recipes</a>
     <a href="#" onclick="showSection('gallery')">Gallery</a>
     <!-- <a href="#" onclick="showSection('constitution')">Constitution</a> -->
     <!-- <a href="#" onclick="showSection('membership')" class="nav-join">Join Us</a> -->
@@ -702,6 +754,7 @@
 <section id="about"></section>
 <section id="events"></section>
 <section id="initiatives"></section>
+<section id="recipes"></section>
 <section id="gallery"></section>
 <section id="membership"></section>
 <section id="constitution"></section>
@@ -727,6 +780,7 @@
     <a href="#" onclick="showSection('about')">About Us</a>
     <a href="#" onclick="showSection('events')">Events</a>
     <a href="#" onclick="showSection('initiatives')">Initiatives</a>
+    <a href="#" onclick="showSection('recipes')">Recipes</a>
     <a href="#" onclick="showSection('gallery')">Gallery</a>
     <!-- <a href="#" onclick="showSection('membership')">Membership</a> -->
     <!-- <a href="#" onclick="showSection('constitution')">Constitution</a> -->
@@ -950,7 +1004,7 @@
   }
 
   // Load all section pages in parallel, then load our-story content
-  const sections = ['home', 'about', 'events', 'initiatives', 'gallery', 'membership', 'constitution'];
+  const sections = ['home', 'about', 'events', 'initiatives', 'recipes', 'gallery', 'membership', 'constitution'];
   Promise.all(
     sections.map(id =>
       fetch(`pages/${id}.html`)
