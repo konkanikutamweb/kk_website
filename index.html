@@ -1019,6 +1019,13 @@
       });
     loadConstitution('de');
   });
+  window.addEventListener('load', () => {
+  const page = window.location.hash.replace('#', '');
+
+  if (page && document.getElementById(page)) {
+    showSection(page);
+  }
+});
 </script>
 </body>
 </html>
